@@ -80,8 +80,8 @@ common: /opt/usr/apps/common
 	@echo "Please install Common Assets"
 	exit 1
 
-dev-common: ../DNA_common
-	cp -rf ../DNA_common .
+dev-common: ../common-app
+	cp -rf ../common-app ./DNA_common
 
 ../DNA_common:
 	@echo "Please checkout Common Assets"
