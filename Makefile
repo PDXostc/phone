@@ -30,6 +30,9 @@ run: install
 	#ssh root@$(TIZEN_IP) "systemctl start bluetooth"
 	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'Phone' | awk '{print $1}' | xargs --no-run-if-empty xwalk-launcher -d"
 
+boxcheck: tizen-release
+	ssh root@$(TIZEN_IP) "cat /etc/tizen-release" | diff tizen-release - ; if [ $$? -ne 0 ] ; then tput setaf 1 ; echo "tizen-release version not correct"; tput sgr0 ;exit 1 ; fi
+	
 run.feb1: install.feb1
 	ssh app@$(TIZEN_IP) "app_launcher -s JLRPOCX031.Phone -d "
 
