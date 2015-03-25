@@ -6,12 +6,17 @@ Group:      Applications/System
 License:    ASL 2.0
 URL:        http://www.tizen.org2
 Source0:    %{name}-%{version}.tar.bz2
-BuildRequires:  common
+BuildRequires:  common-apps
 BuildRequires:  zip
 BuildRequires:  desktop-file-utils
-Requires:  speech-recognition
-Requires:   wrt-installer
-Requires:   wrt-plugins-ivi
+
+Requires: pkgmgr
+Requires: crosswalk
+Requires: tizen-extensions-crosswalk
+Requires: pkgmgr-server
+Requires: model-config-ivi
+Requires: tizen-middleware-units
+Requires: tizen-platform-config
 
 %description
 A HTML Phone application
@@ -24,17 +29,15 @@ A HTML Phone application
 make wgtPkg
 
 %install
-rm -rf %{buildroot}
-%make_install
+#rm -rf %{buildroot}
+make install_obs "OBS=1" DESTDIR="%{?buildroot}"
 
 %post
-if [ -f /opt/usr/apps/.preinstallWidgets/preinstallDone ]; then
-    wrt-installer -i /opt/usr/apps/.preinstallWidgets/Phone.wgt;
-fi
+su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX031.Phone.wgt -q"
 
 %postun
-    wrt-installer -un intelPoc15.Phone
+su app -c "pkgcmd -u -n JLRPOCX031 -q"
 
 %files
 %defattr(-,root,root,-)
-/opt/usr/apps/.preinstallWidgets/Phone.wgt
+/opt/usr/apps/.preinstallWidgets/JLRPOCX031.Phone.wgt
