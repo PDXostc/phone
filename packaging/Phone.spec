@@ -11,6 +11,8 @@ BuildRequires:  zip
 BuildRequires:  desktop-file-utils
 
 Requires: pkgmgr
+Requires: ail
+Requires: aul
 Requires: crosswalk
 Requires: tizen-extensions-crosswalk
 Requires: pkgmgr-server
@@ -33,7 +35,7 @@ make wgtPkg
 make install_obs "OBS=1" DESTDIR="%{?buildroot}"
 
 %post
-su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX031.Phone.wgt -q"
+#su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX031.Phone.wgt -q"
 
 %postun
 su app -c "pkgcmd -u -n JLRPOCX031 -q"
